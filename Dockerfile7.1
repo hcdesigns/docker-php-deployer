@@ -16,3 +16,9 @@ RUN composer global require deployer/deployer
 ## Cleanup
 RUN rm -rf /tmp/* /usr/local/lib/php/doc/* /var/cache/apk/*
 RUN rm -rf /root/.composer
+
+## Add default user
+RUN addgroup -g 1000 app && \
+    adduser -D -u 1000 -G app app
+
+USER app
