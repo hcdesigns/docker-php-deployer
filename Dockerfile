@@ -11,6 +11,9 @@ RUN curl -LO https://deployer.org/deployer.phar
 RUN mv deployer.phar /usr/local/bin/dep
 RUN chmod +x /usr/local/bin/dep
 
+## Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+
 ## Add default user
 RUN addgroup -g 1000 app && \
     adduser -D -u 1000 -G app app
