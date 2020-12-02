@@ -15,6 +15,3 @@ RUN composer global require deployer/recipes --dev
 
 ## Add Composer vendor into PATH
 ENV PATH /root/.composer/vendor/bin:$PATH
-
-WORKDIR /app
-ENTRYPOINT ["/bin/ash", "-c", "sleep 100000000"]
