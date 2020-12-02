@@ -14,9 +14,6 @@ RUN chmod +x /usr/local/bin/dep
 ## Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
-## Install recipe
-RUN composer global require deployer/recipes
-
 ## Add default user
 RUN addgroup -g 1000 app && \
     adduser -D -u 1000 -G app app
