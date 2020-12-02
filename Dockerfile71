@@ -6,11 +6,6 @@ LABEL maintainer="Harvey Chow <harvey@hcdesigns.nl>"
 RUN apk --update add --no-cache openssh \
     && rm -rf /tmp/* /usr/local/lib/php/doc/* /var/cache/apk/*
 
-## Install deployer
-RUN curl -LO https://deployer.org/deployer.phar
-RUN mv deployer.phar /usr/local/bin/dep
-RUN chmod +x /usr/local/bin/dep
-
 ## Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
@@ -18,3 +13,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 RUN addgroup -g 1000 app && \
     adduser -D -u 1000 -G app app
 USER app
+
+## Install Deployer with recipes
+RUN composer global require deployer/deployer
+RUN composer global require deployer/recipes --dev
+
+## Add Composer vendor into PATH
+ENV PATH /home/app/.composer/vendor/bin:$PATH
