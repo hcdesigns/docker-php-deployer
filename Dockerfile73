@@ -9,9 +9,14 @@ RUN apk --update add --no-cache openssh \
 ## Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
+## Add default user
+RUN addgroup -g 1000 app && \
+    adduser -D -u 1000 -G app app
+USER app
+
 ## Install Deployer with recipes
 RUN composer global require deployer/deployer
 RUN composer global require deployer/recipes --dev
 
 ## Add Composer vendor into PATH
-ENV PATH /root/.composer/vendor/bin:$PATH
+ENV PATH /home/app/.composer/vendor/bin:$PATH
