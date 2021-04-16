@@ -15,8 +15,7 @@ RUN addgroup -g 1000 app && \
 USER app
 
 ## Install Deployer with recipes
-RUN composer global require deployer/deployer
-RUN composer global require deployer/recipes --dev
+RUN composer global require deployer/deployer:^7.0
 
 ## Add Composer vendor into PATH
 ENV PATH /home/app/.composer/vendor/bin:$PATH
