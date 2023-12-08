@@ -1,18 +1,19 @@
-FROM php:7.4-alpine
+FROM php:7.4
 
-LABEL maintainer="Harvey Chow <harvey@hcdesigns.nl>"
+LABEL maintainer="Bryan Dijksterhuis <bryan@hcdesigns.nl>"
 
 ## Install SSH for deployer
-RUN apk --update add --no-cache openssh \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y ssh zip unzip \
     && rm -rf /tmp/* /usr/local/lib/php/doc/* /var/cache/apk/*
 
 ## Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 ## Add default user
-RUN addgroup -g 1000 app && \
-    adduser -D -u 1000 -G app app
-USER app
+# RUN addgroup -g 1000 app && \
+#     adduser -D -u 1000 -G app app
+# USER app
 
 ## Install Deployer with recipes
 RUN composer global require deployer/deployer:^7.3
